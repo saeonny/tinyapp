@@ -8,6 +8,7 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+//// app.get(path, (req,res) => {})
 //run http://localhost:8080/ this is the home route
 app.get("/", (req, res) => {
   res.send("Hello!"); //send simple string
@@ -18,6 +19,13 @@ app.get("/", (req, res) => {
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase); // send json
 });
+
+//http://localhost:8080/hello
+// curl http://localhost:8080/hello => Content-Type: text/html
+app.get("/hello", (req, res) => {
+  res.send("<html><body>Hello <b>World</b></body></html>\n");
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
