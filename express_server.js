@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
+app.set("view engine", "ejs");
 
 
 const urlDatabase = {
@@ -25,6 +26,18 @@ app.get("/urls.json", (req, res) => {
 app.get("/hello", (req, res) => {
   res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
+
+//// visit set then fetch => if we run fetch a is undefined
+//http://localhost:8080/set
+app.get("/set", (req, res) => {
+  const a = 1;
+  res.send(`a = ${a}`);
+});
+//http://localhost:8080/fetch
+app.get("/fetch", (req, res) => {
+  res.send(`a = ${a}`);
+});
+
 
 
 app.listen(PORT, () => {
