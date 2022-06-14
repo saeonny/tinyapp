@@ -14,6 +14,17 @@ app.get("/urls", (req, res) => {
   const templateVars = {urls : urlDatabase};
   res.render("urls_index",templateVars);
 })
+
+//this is the format "/urls/:shortURL" and req.params.shortURL return shortURL which indicated by :
+app.get("/urls/:shortURL", (req, res) => {
+  const templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]} ;
+  res.render("urls_show", templateVars);
+});
+
+
+
+
+
 //// app.get(path, (req,res) => {})
 //run http://localhost:8080/ this is the home route
 app.get("/", (req, res) => {
@@ -33,16 +44,6 @@ app.get("/hello", (req, res) => {
   res.render("hello_world", templateVars);
 });
 
-//// visit set then fetch => if we run fetch a is undefined
-//http://localhost:8080/set
-app.get("/set", (req, res) => {
-  const a = 1;
-  res.send(`a = ${a}`);
-});
-//http://localhost:8080/fetch
-app.get("/fetch", (req, res) => {
-  res.send(`a = ${a}`);
-});
 
 
 
