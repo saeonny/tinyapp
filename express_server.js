@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = 8080; // default port 8080
 app.set("view engine", "ejs");
+//refresh => StatusCode 304
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -18,13 +19,28 @@ app.get("/urls", (req, res) => {
 })
 
 app.post("/urls", (req, res) => {
-  console.log(req.body);  // Log the POST request body to the console
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  let recievedLongUrl = req.body.longURL;
+  let shortUrl = generateRandomString();
+  urlDatabase[shortUrl] = recievedLongUrl;
+          
+});
+
+app.get("/u/:shortURL", (req, res) => {
+  
+  const shortURL = req.params.shortURL;
+  const longURL = urlDatabase[shortURL];
+  //if shortURL is not exists
+  if(!longURL) {
+    res.send(`no such shortURL: ${shortURL} exists`);
+  }
+  res.redirect(longURL);
 });
 
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
+
+
 
 //this is the format "/urls/:shortURL" and req.params.shortURL return shortURL which indicated by :
 app.get("/urls/:shortURL", (req, res) => {
@@ -42,8 +58,6 @@ function generateRandomString() {
   return random;
 
 }
-
-
 
 
 
