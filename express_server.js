@@ -9,6 +9,11 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+
+app.get("/urls", (req, res) => {
+  const templateVars = {urls : urlDatabase};
+  res.render("urls_index",templateVars);
+})
 //// app.get(path, (req,res) => {})
 //run http://localhost:8080/ this is the home route
 app.get("/", (req, res) => {
@@ -24,7 +29,8 @@ app.get("/urls.json", (req, res) => {
 //http://localhost:8080/hello
 // curl http://localhost:8080/hello => Content-Type: text/html
 app.get("/hello", (req, res) => {
-  res.send("<html><body>Hello <b>World</b></body></html>\n");
+  const templateVars = { greeting: 'Hello World!' };
+  res.render("hello_world", templateVars);
 });
 
 //// visit set then fetch => if we run fetch a is undefined
