@@ -35,12 +35,28 @@ app.get("/u/:shortURL", (req, res) => {
     res.send(`no such shortURL: ${shortURL} exists`);
   }
   res.redirect(longURL);
+
 });
 
 app.post("/urls/:shortURL/delete", (req, res) => {
   const short = req.params.shortURL;
   delete urlDatabase[short];
   res.redirect("/urls");
+
+          
+});
+
+app.post("/urls/:shortURL/edit", (req, res) => {
+  res.redirect(`/urls/${req.params.shortURL}`);
+
+          
+});
+
+app.post("/urls/:shortURL/editted", (req, res) => {
+  let editedURL = req.body.edittedURL;
+  urlDatabase[req.params.shortURL] = editedURL;
+
+  res.redirect('/urls')
 
           
 });
@@ -55,6 +71,10 @@ app.get("/urls/new", (req, res) => {
 app.get("/urls/:shortURL", (req, res) => {
   const templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]} ;
   res.render("urls_show", templateVars);
+});
+
+app.post("/urls/:shortURL", (req, res) => {
+  const short = req.params.shortURL;
 });
 
 
