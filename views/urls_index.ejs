@@ -13,19 +13,24 @@
   <main style="margin: 1em;">
     <h3>My URLs</h3>
     <table class="table">
-      <thead>
+      <thead>  
         <tr>
           <th scope="col">Short URL</th>
           <th scope="col">Long URL</th>
-        </tr>
+          <th scope="col">Delete</th>
+        </tr>     
       </thead>
       <tbody>
         <% for(let url in urls) { %>
           <tr>
             <td><%= url %></td>
             <td><%= urls[url] %></td>
+            <form method="POST" action='/urls/<%= url %>/delete'>
+            <td><button type="delete" class="btn btn-outline-danger">Delete</button></td>
+            </form>
           </tr>
         <% } %>
+
       </tbody>
     </table>
   </main>

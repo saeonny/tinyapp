@@ -22,6 +22,7 @@ app.post("/urls", (req, res) => {
   let recievedLongUrl = req.body.longURL;
   let shortUrl = generateRandomString();
   urlDatabase[shortUrl] = recievedLongUrl;
+  res.send("Ok");  
           
 });
 
@@ -34,6 +35,14 @@ app.get("/u/:shortURL", (req, res) => {
     res.send(`no such shortURL: ${shortURL} exists`);
   }
   res.redirect(longURL);
+});
+
+app.post("/urls/:shortURL/delete", (req, res) => {
+  const short = req.params.shortURL;
+  delete urlDatabase[short];
+  res.redirect("/urls");
+
+          
 });
 
 app.get("/urls/new", (req, res) => {
