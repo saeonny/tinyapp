@@ -16,9 +16,21 @@
     <p>Email Address: <input type='email' name='email' /></p>
     <p>Password: <input type='password' name='password' /></p>
     <button class="btn btn-outline-primary">Login</button>
-    <% if(logintry) { %>
+    <% if(loginTry_noEmail) { %>
       <div class="alert alert-danger" role="alert">
-        Login Failed <a href="#" class="alert-link">worng id or password</a>. Try again.
+        <a  class="alert-link">Error 403 </a>Login Failed : Email is not registered. Try again.
+      </div>
+    <% } %>
+
+    <% if(loginTry_noMatch) { %>
+      <div class="alert alert-danger" role="alert">
+        <a  class="alert-link">Error 403 </a>Login Failed : Password is wrong. Try again.
+      </div>
+    <% } %>
+
+    <% if(createTry) { %>
+      <div class="alert alert-danger" role="alert">
+        You should Login <a  class="alert-link">to create new URL</a>.
       </div>
     <% } %>
   </form>

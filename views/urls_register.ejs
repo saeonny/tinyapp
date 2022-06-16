@@ -17,6 +17,16 @@
       <p>Password: <input type='password' name='password' /></p>
       <button class="btn btn-outline-primary">register</button>
     </form>
+    <% if(registerTry_exist) { %>
+      <div class="alert alert-danger" role="alert">
+        <a  class="alert-link">Error 400 </a>Register Failed : Email is already registered. Try again.
+      </div>
+    <% } %>
+    <% if(registerTry_invID) { %>
+      <div class="alert alert-danger" role="alert">
+        <a  class="alert-link">Error 400 </a>Register Failed : Invalid Email or Password. Try again.
+      </div>
+    <% } %>
   
     </main>
   <!-- Bootstrap JS -->
