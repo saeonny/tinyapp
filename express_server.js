@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session')
 const { redirect, header } = require("express/lib/response");
 const bcrypt = require('bcryptjs');
+const {generateRandomString,registeredEmails,loginCheck,findRegisteredURL,getShortURL} = require("./helper");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,32 +26,12 @@ let registerTry_invID = false;
 let registerTry_exist = false;
 ///////////////////////////////DATA/////////////////////////////////////////////////////
 const users = {
-  // "userRandomID": {
-  //   id: "userRandomID",
-  //   email: "user@example.com",
-    
-  // },
-  // "user2RandomID": {
-  //   id: "user2RandomID",
-  //   email: "user2@example.com",
-    
-  // }
+
 }
 
 
-// users.userRandomID.password = bcrypt.hashSync("purple-monkey-dinosaur",10);
-// users.user2RandomID.password = bcrypt.hashSync("dishwasher-funk",10);
-
-
 const urlDatabase = {
-  // "b2xVn2": {
-  //   longURL: "http://www.lighthouselabs.ca",
-  //   userID: "userRandomID"
-  // },
-  // "9sm5xK": {
-  //   longURL: "http://www.google.com",
-  //   userID: "userRandomID"
-  // }
+
 };
 
 ///////////////////////////////INITIALIZING /HOME PAGE//////////////////
@@ -143,7 +124,7 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 
 app.get("/login", (req, res) => {
   loginTry_noEmail = false;
-  oginTry_noMatch = false
+  loginTry_noMatch = false
   const templateVars = { user_id: null, email: null, loginTry_noEmail: loginTry_noEmail, loginTry_noMatch: loginTry_noMatch, createTry: createTry };
 
   if (req.session.user_id !== undefined) {
@@ -266,55 +247,6 @@ app.post("/urls/:shortURL", (req, res) => {
 });
 
 
-function generateRandomString() {
-  let random = Math.random().toString(20).substr(2, 6);
-  const keys = Object.keys(urlDatabase);
-  while (keys.indexOf(random) !== -1) {  // while random string does not exists in the urlDatabase
-    random = Math.random().toString(20).substr(2, 6);
-  }
-  return random;
-
-}
-
-function registeredEmails() {
-  let emails = []
-  for (let id in users) {
-    emails.push(users[id].email)
-  }
-  return emails;
-}
-
-//using bycryp
-function loginCheck(email, password) {
-  for (let id in users) {
-    if (users[id].email === email && bcrypt.compareSync(password, users[id].password)) {
-      return id;
-
-    }
-  }
-  return undefined;
-}
-
-function findRegisteredURL(user) {
-  let urls = {}
-  for (let shortURL in urlDatabase) {
-    if (urlDatabase[shortURL].userID === user) {
-      urls[shortURL] = urlDatabase[shortURL].longURL;
-    }
-
-  }
-  return urls
-}
-
-function getShortURL(user) {
-  let shortURLs = [];
-  for (let shortURL in urlDatabase) {
-    if (urlDatabase[shortURL].userID === user) {
-      shortURLs.push(shortURL);
-    }
-  }
-  return shortURLs
-}
 
 
 
