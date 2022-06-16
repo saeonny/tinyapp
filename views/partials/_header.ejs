@@ -11,23 +11,22 @@
       </div>
     </div>
 
-    <% if(id) { %>
-      <form class="nav justify-content-end" action = "/logout" method ="POST">
+    <% if(user_id) { %>
+      
         <div class="form-group mx-sm-3 mb-2">
-          <p> USER: <%=id%> </p>
+          <button type="submit" class="btn btn-outline-light"> <%=email%> </button>
         </div>  
-        <button>Logout</button>
-        
+        <form class="nav justify-content-end" action = "/logout" method ="POST">
+        <button type="submit" class="btn btn-outline-light">Logout</button>
       </form>
     <% } %>
 
-    <% if(!id) { %>
+    <% if(!user_id) { %>
       <form class="nav justify-content-end" , action="/login" , method="POST">
-        <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" name="username">
-        </div>
-        <button type="submit" class="btn btn-outline-light">Login</button>
-        
+        <button type="submit" class="btn btn-outline-light">Login</button>  
+      </form>
+      <form action = "/registerbt" method="POST">
+        <button type="submit" class="btn btn-outline-light">Register</button>
       </form>
     <% } %>
 
