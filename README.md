@@ -25,8 +25,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
 - click http://localhost:8080/urls or copy and paste this link to your webbrowser.
 
 ## Features
-Main feature of TinyApp is shortening long URLs, allows user to manage all created shortening URLs, and allow to direct to web site using shortURL.
-- Register users with email and password (eithe cannot be empty)
+Main feature of TinyApp are shortening long URLs, allows users to manage their shortening URLs, and allows to direct to web site using shortURL.
+- Register users with email and password (empty email or empty password not allowed)
 - Login/Logout 
 - On Create New URL tab, users can create short-URL using long-URL and saved to MY URLs
 - On MY URLS (main page), users can manage(edit long-URL or delete) their created short-URL
