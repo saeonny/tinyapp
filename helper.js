@@ -1,26 +1,36 @@
+const bcrypt = require('bcryptjs');
+
+const users = {
+  "admin1": {
+    id: "admin1",
+    email: "admin1@mail.com",
+    password: bcrypt.hashSync("1234", 10),
+  },
+  "admin2": {
+    id: "admin2",
+    email: "admin2@mail.com",
+    password: bcrypt.hashSync("1234", 10),
+  }
+}
 
 const urlDatabase = {
   "b2xVn2": {
     longURL: "http://www.lighthouselabs.ca",
-    userID: "userRandomID"
+    userID: "admin1"
   },
   "9sm5xK": {
     longURL: "http://www.google.com",
-    userID: "userRandomID"
-  }
-};
-
-const users = {
-  "userRandomID": {
-    id: "userRandomID", 
-    email: "user@example.com", 
-    password: "purple-monkey-dinosaur"
+    userID: "admin2"
   },
-  "user2RandomID": {
-    id: "user2RandomID", 
-    email: "user2@example.com", 
-    password: "dishwasher-funk"
-  }
+  "5sm2x4": {
+    longURL: "http://www.youtube.com",
+    userID: "admin2"
+  },
+  "4samx0": {
+    longURL: "http://www.dfdsf.com",
+    userID: "admin2"
+  },
+
 };
 
 function generateRandomString() {
@@ -75,4 +85,5 @@ function getShortURL(user_id) {
 }
 
 
-module.exports = {generateRandomString,registeredEmails,loginCheck,findRegisteredURL,getShortURL};
+
+module.exports = {users,urlDatabase,generateRandomString,registeredEmails,loginCheck,findRegisteredURL,getShortURL};
