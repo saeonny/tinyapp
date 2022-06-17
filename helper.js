@@ -11,7 +11,7 @@ const users = {
     email: "admin2@mail.com",
     password: bcrypt.hashSync("1234", 10),
   }
-}
+};
 
 const urlDatabase = {
   "b2xVn2": {
@@ -22,18 +22,11 @@ const urlDatabase = {
     longURL: "http://www.google.com",
     userID: "admin2"
   },
-  "5sm2x4": {
-    longURL: "http://www.youtube.com",
-    userID: "admin2"
-  },
-  "4samx0": {
-    longURL: "http://www.dfdsf.com",
-    userID: "admin2"
-  },
+
 
 };
 
-function generateRandomString() {
+const generateRandomString = function() {
   let random = Math.random().toString(20).substr(2, 6);
   const keys = Object.keys(urlDatabase);
   while (keys.indexOf(random) !== -1) {  // while random string does not exists in the urlDatabase
@@ -41,18 +34,18 @@ function generateRandomString() {
   }
   return random;
 
-}
+};
 
-function registeredEmails() {
-  let emails = []
+const registeredEmails = function() {
+  let emails = [];
   for (let id in users) {
-    emails.push(users[id].email)
+    emails.push(users[id].email);
   }
   return emails;
-}
+};
 
-//using bycryp password
-function loginCheck(email, password) {
+
+const loginCheck = function(email, password) {
   for (let id in users) {
     if (users[id].email === email && bcrypt.compareSync(password, users[id].password)) {
       return id;
@@ -60,29 +53,29 @@ function loginCheck(email, password) {
     }
   }
   return undefined;
-}
+};
 
 //
-function findRegisteredURL(user_id) {
-  let urls = {}
+const findRegisteredURL = function(user_id) {
+  let urls = {};
   for (let shortURL in urlDatabase) {
     if (urlDatabase[shortURL].userID === user_id) {
       urls[shortURL] = urlDatabase[shortURL].longURL;
     }
 
   }
-  return urls
-}
+  return urls;
+};
 
-function getShortURL(user_id) {
+const getShortURL = function(user_id) {
   let shortURLs = [];
   for (let shortURL in urlDatabase) {
     if (urlDatabase[shortURL].userID === user_id) {
       shortURLs.push(shortURL);
     }
   }
-  return shortURLs
-}
+  return shortURLs;
+};
 
 
 

@@ -28,7 +28,7 @@ let registerTry_invID = false;
 let registerTry_exist = false;
 
 
-///////////////////////////////INITIALIZING /HOME PAGE//////////////////
+///////////////////////////////INITIALIZING /HOME PAGE///////////////////////////////////////
 
 app.get("/", (req, res) => {
   if (req.session.user_id) {
@@ -41,7 +41,6 @@ app.get("/", (req, res) => {
 
 app.get("/urls", (req, res) => {
   const templateVars = { urls: null, user_id: null, email: null };
-  console.log("users", users);
 
   if (req.session.user_id) {
     templateVars.urls = findRegisteredURL(req.session.user_id);
@@ -188,10 +187,10 @@ app.post("/register", (req, res) => {
     while (Object.keys(users).indexOf(id) !== -1) {
       id = generateRandomString();
     }
-    //regiter no matter
+    
     req.session.user_id = id;
     users[id] = { id: id, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10) };
-    console.log(users);
+   
 
 
     return res.redirect("/urls");
@@ -203,7 +202,7 @@ app.post("/register", (req, res) => {
 
 
 
-////LOGIN////////////////////////////////////////////
+//////////////////////LOGIN////////////////////////////////////////////
 
 app.get("/login", (req, res) => {
   loginTry_noEmail = false;
@@ -215,13 +214,12 @@ app.get("/login", (req, res) => {
     templateVars.email = users[req.session.user_id].email;
   }
 
-
-  res.render("urls_login", templateVars);
+  return res.render("urls_login", templateVars);
 
 });
 
 
-
+///error messages are handled on the urls_login.ejs 
 
 app.post("/login", (req, res) => {
   createTry = false;
@@ -232,7 +230,6 @@ app.post("/login", (req, res) => {
 
 
   if (loginCheck(givenId, givenPass)) {
-    // res.cookie("user_id", loginCheck(givenId, givenPass))
     req.session.user_id = loginCheck(givenId, givenPass);
 
     return res.redirect("/urls");
@@ -259,6 +256,8 @@ app.post("/login", (req, res) => {
 
 });
 
+////////////////////LOGOUT////////////////////
+
 app.post("/logout", (req, res) => {
   //res.clearCookie("user_id");
   req.session = null;
@@ -266,11 +265,6 @@ app.post("/logout", (req, res) => {
   res.redirect("/urls");
 
 });
-
-
-
-
-
 
 
 
